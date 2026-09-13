@@ -1,17 +1,19 @@
 import Editor from "@monaco-editor/react";
-import type * as monaco from "monaco-editor";
+import { useParams } from "react-router-dom";
+import * as monaco from "monaco-editor";
 import { useState,useRef,useEffect } from "react";
 import Chat from "./Chat";
 
 function CodeEditor(){
-    const socket = useRef<WebSocket | null>(null)
+    const socket = useRef(null);
      const[code,Setcode] = useState("");
+     const {roomid} = useParams();
    
      useEffect(()=>{
-
+         console.log(roomid)
         console.log("running useeffect")
-    
-        socket.current = new WebSocket('ws://192.168.31.80:3000') 
+        console.log(roomid);
+        socket.current = new WebSocket(`ws://localhost:3000/${roomid}`) 
         
         socket.current.onopen = ()=>{
             console.log("User Connected")
@@ -28,7 +30,7 @@ function CodeEditor(){
     }
      },[])
 
-     const handlechange=(value:string |undefined)=>{
+     const handlechange=(value)=>{
        const newcode = value || "";
 
        Setcode(newcode);

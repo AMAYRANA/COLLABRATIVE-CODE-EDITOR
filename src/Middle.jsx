@@ -8,7 +8,8 @@ function middle(){
     <div className={styles.mid}>
     <h1 id={styles.hed1}>CODE TOGETHER IN REAL TIME</h1>
     <p id={styles.para1}>A shared editor </p>
-    <button id={styles.btn1} onClick={()=> navigate("/login")}> CREATE ROOM </button>
+    <button id={styles.btn1} onClick={()=> navigate("/signup")}> CREATE ROOM </button>
+    <button id={styles.btn1} onClick={()=> navigate("/login")}> JOIN ROOM </button>
     </div>
     </>
     )
