@@ -25,7 +25,6 @@ mongoose.connect('mongodb://localhost:27017/collabrative-editor')
 
 
 
-
 const server = http.createServer(app);
 
 const wss = new WebSocketServer({server});
@@ -39,12 +38,12 @@ wss.on("connection",(socket,request)=>{
 
     socket.on("message",(message)=>
     {
-        const newCode = message.toString();
+        const newCode = JSON.parse(message);
 
         clients.forEach((client)=>{
-            if(client !== socket && client.readyState === WebSocket.OPEN)
+            if(client !== socket && client.readyState === WebSocket.OPEN && newCode.type === "code")
             {
-            client.send(newCode)
+            client.send(JSON.stringify(newCode))
             }
         })
     })

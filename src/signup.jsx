@@ -10,7 +10,7 @@ async function HandleChange(e){
    e.preventDefault();
    
    const formdata = new FormData(e.target);
-   const room = formdata.get("room");
+   const roomname = formdata.get("room");
    const password = formdata.get("password");
 
 
@@ -19,7 +19,7 @@ async function HandleChange(e){
                headers:{
                   "Content-Type":"application/json"
                },
-               body: JSON.stringify({roomname:room,password:password})
+               body: JSON.stringify({roomname:roomname,password:password})
    }
 
    ) 

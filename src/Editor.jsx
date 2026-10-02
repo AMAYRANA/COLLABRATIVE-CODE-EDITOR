@@ -1,4 +1,5 @@
 import Editor from "@monaco-editor/react";
+import "./editor.css"
 import { useParams } from "react-router-dom";
 import * as monaco from "monaco-editor";
 import { useState,useRef,useEffect } from "react";
@@ -20,10 +21,11 @@ function CodeEditor(){
         }
 
         socket.current.onmessage = (event)=>{
-            let data = event.data;
-              let newcode = data.toString();
-            Setcode(newcode);
+            let data = JSON.parse(event.data);
+            if(data.type === "code"){
+            Setcode(data.content);
         }
+    }
    
     socket.current.onclose = ()=>{
         console.log("User disconnected")
@@ -37,11 +39,15 @@ function CodeEditor(){
 
       if(socket.current?.readyState === WebSocket.OPEN )
       {
-        socket.current.send(newcode);
+        socket.current.send(JSON.stringify({
+            type:"code",
+            content:newcode
+        }));
       }
      }
     return(
         <>
+        <div className="editor">
         <Editor 
         height="90vh"
         defaultLanguage = "javascript"
@@ -50,8 +56,10 @@ function CodeEditor(){
         onChange = {handlechange}
         defaultValue="START CODING ....."
         />
-        <button>Send</button>
+        <div className="chat">
         <Chat />
+        </div>
+        </div>
     
         </>
     )

@@ -1,0 +1,11 @@
+.chatbox{
+    color: white;
+    height: 90vh;
+    border:3px solid black;
+}
+.message-bubble{
+    color: white;
+    background-color: black;
+    width: 6vw;
+    border-radius: 5px;
+}
